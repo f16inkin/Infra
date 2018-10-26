@@ -13,7 +13,7 @@
         <?php if(isset($content))foreach ($content['menu'] as $menuItem):?>
             <li>
                 <a href="<?php echo $menuItem['link'] ;?>">
-                    <i class="<?php echo $menuItem['style'] ;?>"></i>
+                    <i class="fa-for-menu <?php echo $menuItem['style'] ;?>"></i>
                     <span class="nav-text"><?php echo $menuItem['title'];?></span>
                 </a>
             </li>

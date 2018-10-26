@@ -58,4 +58,14 @@ return[
         'construct' => false,
         'module' => true
     ],
+    [
+        '^handbook/contacts$' => 'application/handbook/handbook/contacts',
+        'construct' => false,
+        'module' => true
+    ],
+    [
+        '^handbook/contact/view/([0-9a-z]+)' => 'application/handbook/handbook/view/$1',
+        'construct' => false,
+        'module' => true
+    ],
 ];
