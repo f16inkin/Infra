@@ -58,13 +58,20 @@ return[
         'construct' => false,
         'module' => true
     ],
+    //Контакты
     [
         '^handbook/contacts$' => 'application/handbook/handbook/contacts',
         'construct' => false,
         'module' => true
     ],
     [
-        '^handbook/contact/view/([0-9a-z]+)' => 'application/handbook/handbook/view/$1',
+        '^handbook/contact/view/([0-9a-z]+)' => 'application/handbook/handbook/contact/$1',
+        'construct' => false,
+        'module' => true
+    ],
+    //Компании
+    [
+        '^handbook/companies$' => 'application/handbook/handbook/companies',
         'construct' => false,
         'module' => true
     ],

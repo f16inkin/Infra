@@ -27,8 +27,8 @@
                     <a href="/handbook/companies/" class="btn btn-success btn-sm">Компании</a>
                 </div>
                 <div class="alert alert-primary alert-dismissible fade show margin-top5 margin-bottom0" role="alert">
-                    <strong>Holy guacamole!</strong> Здесь отображены последние 10 добавленных контактов. Для поиска нужного контакта
-                    введите фамилию, имя, отчество или телефон человека в поле "Поиск".
+                    <strong>Holy guacamole!</strong> Здесь отображены последние 10 добавленных компаний. Для поиска нужной
+                    введите название, имя руководителя или инн в поле "Поиск".
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -40,26 +40,24 @@
                     <table cellpadding="1" cellspacing="1" border="0" class="table-mine  full-width box-shadow--2dp table-striped">
                         <thead>
                         <tr class="tr-table-header">
-                            <th width="25%">Фото</th>
-                            <th width="25%">ФИО</th>
-                            <th width="25%">Должность</th>
-                            <th width="25%">Телефон</th>
-                            <th width="25%">Email</th>
-                            <th width="25%">Компания</th>
-                            <th width="25%">Действия</th>
+                            <th width="">Логотип</th>
+                            <th width="">Название</th>
+                            <th width="">Руководитель</th>
+                            <th width="">Телефон</th>
+                            <th width="">Email</th>
+                            <th width="">Действия</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <?php foreach ($content as $contact) :?>
+                        <?php foreach ($content as $company) :?>
                             <tr class="tr-table-content">
-                                <td hidden><input type="text" name="contact_id" value="<?=$contact['id'] ;?>"></td>
-                                <td><img class="preview-contact-foto" src="<?='/application/handbook/storage/foto/'.$contact['foto']?>"></td>
-                                <td><?=$contact['surname'].' '.$contact['firstname'].' '.$contact['secondname'] ;?></td>
-                                <td><?=$contact['position'] ;?></td>
-                                <td><?=$contact['phone'] ;?></td>
-                                <td><?=$contact['email'] ;?></td>
-                                <td><a href="<?='/handbook/company/'.$contact['company_id'] ;?>" class="btn btn-dark btn-sm"><?=$contact['company'] ;?></a></td>
-                                <td><a href="" onclick="showContact(<?=$contact['id'] ;?>); return false;" class="btn btn-primary btn-sm">Посмотреть</a></td>
+                                <td hidden><input type="text" name="contact_id" value="<?=$company['id'] ;?>"></td>
+                                <td><img class="preview-contact-foto" src="<?='/application/handbook/storage/logos/'.$company['logo']?>"></td>
+                                <td><?=$company['short_name'] ;?></td>
+                                <td><?=$company['ceo']['surname'].' '.$company['ceo']['firstname'].' '.$company['ceo']['secondname'] ;?></td>
+                                <td><?=$company['phone'] ;?></td>
+                                <td><?=$company['email'] ;?></td>
+                                <td><a href="" onclick="showCompany(<?=$company['id'] ;?>); return false;" class="btn btn-primary btn-sm">Посмотреть</a></td>
                             </tr>
                         <?php endforeach; ?>
                         </tbody>
