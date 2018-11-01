@@ -13,12 +13,6 @@
                 <a href="/handbook/" class="btn background-darkred btn-sm">
                     <i class="fa fa-address-book" aria-hidden="true"></i> Справочник</a>
                 <a class="btn background-darkred btn-sm">
-                    <i class="fa fa-clipboard" aria-hidden="true"></i> Анкеты</a>
-                <a class="btn background-darkred btn-sm">
-                    <i class="fa fa-handshake" aria-hidden="true"></i> Контрагенты</a>
-                <a class="btn background-darkred btn-sm">
-                    <i class="fa fa-calendar-alt" aria-hidden="true"></i> Отчеты</a>
-                <a class="btn background-darkred btn-sm">
                     <i class="fa fa-cog" aria-hidden="true"></i> Управление</a>
             </div>
             <div class="cards-workplace">

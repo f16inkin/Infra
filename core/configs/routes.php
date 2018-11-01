@@ -75,4 +75,9 @@ return[
         'construct' => false,
         'module' => true
     ],
+    [
+        '^handbook/company/view/([0-9a-z]+)$' => 'application/handbook/handbook/company/$1',
+        'construct' => false,
+        'module' => true
+    ],
 ];

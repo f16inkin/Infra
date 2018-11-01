@@ -4,15 +4,28 @@
 
 
 /*
- * Добавляет данные необходимые к заполнению по топливу на текущий день
+ * Показывает модальное окно с данными по выбранному контакту
  *
- * Возвращает в ответ HTML страницу динамически сгенерированную PHP
  */
 function showContact(id){
 
     $.ajax({
         type: "POST",
         url: "/handbook/contact/view/" + id,
+        cache: false,
+        success:function (response) {
+            $(".modal-content").html(response);
+            $('#exampleModalCenter').modal('show');
+
+        }
+    });
+}
+
+function showCompany(id){
+
+    $.ajax({
+        type: "POST",
+        url: "/handbook/company/view/" + id,
         cache: false,
         success:function (response) {
             $(".modal-content").html(response);

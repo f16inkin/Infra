@@ -13,12 +13,6 @@
                 <a href="/handbook/" class="btn background-darkred btn-sm">
                     <i class="fa fa-address-book" aria-hidden="true"></i> Справочник</a>
                 <a class="btn background-darkred btn-sm">
-                    <i class="fa fa-clipboard" aria-hidden="true"></i> Анкеты</a>
-                <a class="btn background-darkred btn-sm">
-                    <i class="fa fa-handshake" aria-hidden="true"></i> Контрагенты</a>
-                <a class="btn background-darkred btn-sm">
-                    <i class="fa fa-calendar-alt" aria-hidden="true"></i> Отчеты</a>
-                <a class="btn background-darkred btn-sm">
                     <i class="fa fa-cog" aria-hidden="true"></i> Управление</a>
             </div>
             <div class="cards-workplace">
@@ -53,7 +47,7 @@
                         <?php foreach ($content as $contact) :?>
                             <tr class="tr-table-content">
                                 <td hidden><input type="text" name="contact_id" value="<?=$contact['id'] ;?>"></td>
-                                <td><img class="preview-contact-foto" src="<?='/application/handbook/storage/foto/'.$contact['foto']?>"></td>
+                                <td><img class="preview-handbook-foto" src="<?='/application/handbook/storage/foto/'.$contact['foto']?>"></td>
                                 <td><?=$contact['surname'].' '.$contact['firstname'].' '.$contact['secondname'] ;?></td>
                                 <td><?=$contact['position'] ;?></td>
                                 <td><?=$contact['phone'] ;?></td>

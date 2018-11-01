@@ -13,12 +13,6 @@
                 <a href="/handbook/" class="btn background-darkred btn-sm">
                     <i class="fa fa-address-book" aria-hidden="true"></i> Справочник</a>
                 <a class="btn background-darkred btn-sm">
-                    <i class="fa fa-clipboard" aria-hidden="true"></i> Анкеты</a>
-                <a class="btn background-darkred btn-sm">
-                    <i class="fa fa-handshake" aria-hidden="true"></i> Контрагенты</a>
-                <a class="btn background-darkred btn-sm">
-                    <i class="fa fa-calendar-alt" aria-hidden="true"></i> Отчеты</a>
-                <a class="btn background-darkred btn-sm">
                     <i class="fa fa-cog" aria-hidden="true"></i> Управление</a>
             </div>
             <div class="cards-workplace">
@@ -52,7 +46,7 @@
                         <?php foreach ($content as $company) :?>
                             <tr class="tr-table-content">
                                 <td hidden><input type="text" name="contact_id" value="<?=$company['id'] ;?>"></td>
-                                <td><img class="preview-contact-foto" src="<?='/application/handbook/storage/logos/'.$company['logo']?>"></td>
+                                <td><img class="preview-handbook-foto" src="<?='/application/handbook/storage/logos/'.$company['logo']?>"></td>
                                 <td><?=$company['short_name'] ;?></td>
                                 <td><?=$company['ceo']['surname'].' '.$company['ceo']['firstname'].' '.$company['ceo']['secondname'] ;?></td>
                                 <td><?=$company['phone'] ;?></td>
