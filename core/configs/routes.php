@@ -70,22 +70,22 @@ return[
         'construct' => false,
         'module' => true
     ],
-    [
+    /*[
         '^handbook/contact/view/([0-9a-z]+)$' => 'application/handbook/handbook/contact/$1',
         'construct' => false,
         'module' => true
-    ],
+    ],*/
     //Компании
     [
         '^handbook/companies$' => 'application/handbook/handbook/companies',
         'construct' => false,
         'module' => true
     ],
-    [
+    /*[
         '^handbook/company/view/([0-9a-z]+)$' => 'application/handbook/handbook/company/$1',
         'construct' => false,
         'module' => true
-    ],
+    ],*/
     //Для AJAX
     [
         '^handbook/get/contacts$' => 'application/handbook/contact/contacts',
@@ -93,7 +93,17 @@ return[
         'module' => true
     ],
     [
+        '^handbook/get/companies$' => 'application/handbook/company/companies',
+        'construct' => false,
+        'module' => true
+    ],
+    [
         '^handbook/contact/view/([0-9a-z]+)$' => 'application/handbook/contact/contact/$1',
+        'construct' => false,
+        'module' => true
+    ],
+    [
+        '^handbook/company/view/([0-9a-z]+)$' => 'application/handbook/company/company/$1',
         'construct' => false,
         'module' => true
     ],

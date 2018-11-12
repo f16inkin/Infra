@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col-4">
             <div class="handbook-card-foto">
-                <img class="full-handbook-foto" src="<?='/application/handbook/storage/logos/'.$selectedCompany['logo']?>">
+                <img class="full-handbook-foto" src="<?='/application/handbook/storage/logos/'.$content['logo']?>">
             </div>
             <div class="handbook-card-buttons-panel">
                 <div class="handbook-card-button-wrapper">
@@ -33,122 +33,127 @@
         <div class="col-8">
             <div class="handbook-card-info">
                 <div class="handbook-card-info-fullname">
-                    <strong><?=$selectedCompany['full_name'] ;?></strong>
+                    <strong><?=$content['full_name'] ;?></strong>
                 </div>
                 <div class="handbook-card-info-content">
-                    <?php if (isset($selectedCompany['short_name'])):?>
+                    <?php if (isset($content['short_name'])):?>
                         <div class="handbook-card-info-content-line">
                             <i class="fa fa-building" aria-hidden="true"></i>
-                            <strong>Краткое название:</strong> <?=$selectedCompany['short_name']; ?>
+                            <strong>Краткое название:</strong> <?=$content['short_name']; ?>
                         </div>
                     <?php endif; ?>
-                    <?php if (isset($selectedCompany['phone'])):?>
+                    <?php if (isset($content['phone'])):?>
                         <div class="handbook-card-info-content-line">
                             <i class="fa fa-phone-square" aria-hidden="true"></i>
-                            <strong>Телефон:</strong> <?=$selectedCompany['phone']; ?>
+                            <strong>Телефон:</strong> <?=$content['phone']; ?>
                         </div>
                     <?php endif; ?>
-                    <?php if (isset($selectedCompany['email'])):?>
+                    <?php if (isset($content['email'])):?>
                         <div class="handbook-card-info-content-line">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
-                            <strong>Email:</strong> <?=$selectedCompany['email']; ?>
+                            <strong>Email:</strong> <?=$content['email']; ?>
                         </div>
                     <?php endif; ?>
-                    <?php if (isset($selectedCompany['legal_address'])):?>
+                    <?php if (isset($content['legal_address'])):?>
                         <div class="handbook-card-info-content-line">
                             <i class="fa fa-home" aria-hidden="true"></i>
-                            <strong>Юридический адрес:</strong> <?=$selectedCompany['legal_address']; ?>
+                            <strong>Юридический адрес:</strong> <?=$content['legal_address']; ?>
                         </div>
                     <?php endif; ?>
-                    <?php if (isset($selectedCompany['real_address'])):?>
+                    <?php if (isset($content['real_address'])):?>
                         <div class="handbook-card-info-content-line">
                             <i class="fa fa-home" aria-hidden="true"></i>
-                            <strong>Фактический адрес:</strong> <?=$selectedCompany['real_address']; ?>
+                            <strong>Фактический адрес:</strong> <?=$content['real_address']; ?>
                         </div>
                     <?php endif; ?>
                     <hr>
-                    <?php if (isset($selectedCompany['ceo'])):?>
+                    <?php if (isset($content['ceo'])):?>
                         <div class="handbook-card-info-content-line">
                             <i class="fa fa-user-tie" aria-hidden="true"></i>
-                            <strong><?=$selectedCompany['ceo']['position']; ?>:</strong>
-                            <?=
-                            $selectedCompany['ceo']['surname'].' '.
-                            $selectedCompany['ceo']['firstname'].' '.
-                            $selectedCompany['ceo']['secondname']
-                            ;?>
+                            <strong><?=$content['ceo']['position']; ?>:</strong>
+                            <a href="" onclick="showContact(<?=$content['ceo']['id'] ;?>); return false;">
+                                <?=
+                                $content['ceo']['surname'].' '.
+                                $content['ceo']['firstname'].' '.
+                                $content['ceo']['secondname']
+                                ;?>
+                            </a>
                         </div>
                     <?php endif; ?>
-                    <?php if (isset($selectedCompany['accountant'])):?>
+                    <?php if (isset($content['accountant'])):?>
                         <div class="handbook-card-info-content-line">
                             <i class="fa fa-user-tie" aria-hidden="true"></i>
-                            <strong><?=$selectedCompany['accountant']['position']; ?>:</strong>
-                            <?=
-                            $selectedCompany['accountant']['surname'].' '.
-                            $selectedCompany['accountant']['firstname'].' '.
-                            $selectedCompany['accountant']['secondname']
-                            ;?>
+                            <strong><?=$content['accountant']['position']; ?>:</strong>
+                            <a href="" onclick="showContact(<?=$content['accountant']['id'] ;?>); return false;">
+                                <?=
+                                $content['accountant']['surname'].' '.
+                                $content['accountant']['firstname'].' '.
+                                $content['accountant']['secondname']
+                                ;?>
+                            </a>
+
                         </div>
                     <?php endif; ?>
                     <hr>
-                    <?php if (isset($selectedCompany['inn'])):?>
+                    <?php if (isset($content['inn'])):?>
                         <div class="handbook-card-info-content-line">
                             <i class="fa fa-clipboard" aria-hidden="true"></i>
-                            <strong>ИНН:</strong> <?=$selectedCompany['inn']; ?>
+                            <strong>ИНН:</strong> <?=$content['inn']; ?>
                         </div>
                     <?php endif; ?>
-                    <?php if (isset($selectedCompany['kpp'])):?>
+                    <?php if (isset($content['kpp'])):?>
                         <div class="handbook-card-info-content-line">
                             <i class="fa fa-clipboard" aria-hidden="true"></i>
-                            <strong>КПП:</strong> <?=$selectedCompany['kpp']; ?>
+                            <strong>КПП:</strong> <?=$content['kpp']; ?>
                         </div>
                     <?php endif; ?>
-                    <?php if (isset($selectedCompany['okpo'])):?>
+                    <?php if (isset($content['okpo'])):?>
                         <div class="handbook-card-info-content-line">
                             <i class="fa fa-clipboard" aria-hidden="true"></i>
-                            <strong>ОКПО:</strong> <?=$selectedCompany['okpo']; ?>
+                            <strong>ОКПО:</strong> <?=$content['okpo']; ?>
                         </div>
                     <?php endif; ?>
-                    <?php if (isset($selectedCompany['oktmo'])):?>
+                    <?php if (isset($content['oktmo'])):?>
                         <div class="handbook-card-info-content-line">
                             <i class="fa fa-clipboard" aria-hidden="true"></i>
-                            <strong>ОКТМО:</strong> <?=$selectedCompany['oktmo']; ?>
+                            <strong>ОКТМО:</strong> <?=$content['oktmo']; ?>
                         </div>
                     <?php endif; ?>
-                    <?php if (isset($selectedCompany['ogrn'])):?>
+                    <?php if (isset($content['ogrn'])):?>
                         <div class="handbook-card-info-content-line">
                             <i class="fa fa-clipboard" aria-hidden="true"></i>
-                            <strong>ОГРН:</strong> <?=$selectedCompany['ogrn']; ?>
+                            <strong>ОГРН:</strong> <?=$content['ogrn']; ?>
                         </div>
                     <?php endif; ?>
                     <hr>
-                    <?php if (isset($selectedCompany['bank_name'])):?>
+                    <?php if (isset($content['bank_name'])):?>
                         <div class="handbook-card-info-content-line">
                             <i class="fa fa-building" aria-hidden="true"></i>
-                            <strong>Банк:</strong> <?=$selectedCompany['bank_name']; ?>
+                            <strong>Банк:</strong> <?=$content['bank_name']; ?>
                         </div>
                     <?php endif; ?>
-                    <?php if (isset($selectedCompany['bank_address'])):?>
+                    <?php if (isset($content['bank_address'])):?>
                         <div class="handbook-card-info-content-line">
                             <i class="fa fa-home" aria-hidden="true"></i>
-                            <strong>Адрес банка:</strong> <?=$selectedCompany['bank_address']; ?>
+                            <strong>Адрес банка:</strong> <?=$content['bank_address']; ?>
                         </div>
                     <?php endif; ?>
-                    <?php if (isset($selectedCompany['bik'])):?>
+                    <?php if (isset($content['bik'])):?>
                         <div class="handbook-card-info-content-line">
                             <i class="fa fa-clipboard" aria-hidden="true"></i>
-                            <strong>БИК:</strong> <?=$selectedCompany['bik']; ?>
+                            <strong>БИК:</strong> <?=$content['bik']; ?>
                         </div>
                     <?php endif; ?>
-                    <?php if (isset($selectedCompany['checking_account'])):?>
+                    <?php if (isset($content['checking_account'])):?>
                         <div class="handbook-card-info-content-line">
                             <i class="fa fa-money-bill-alt" aria-hidden="true"></i>
-                            <strong>Расчетный счет:</strong> <?=$selectedCompany['checking_account']; ?>
+                            <strong>Расчетный счет:</strong> <?=$content['checking_account']; ?>
                         </div>
                     <?php endif; ?>
-                    <?php if (isset($selectedCompany['correspondent_account'])):?>
+                    <?php if (isset($content['correspondent_account'])):?>
                         <div class="handbook-card-info-content-line">
                             <i class="fa fa-money-bill-alt" aria-hidden="true"></i>
-                            <strong>Кореспондентский счет:</strong> <?=$selectedCompany['correspondent_account']; ?>
+                            <strong>Кореспондентский счет:</strong> <?=$content['correspondent_account']; ?>
                         </div>
                     <?php endif; ?>
                 </div>

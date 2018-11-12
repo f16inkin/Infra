@@ -46,9 +46,9 @@ class ControllerHandbook extends ControllerApplication
         $this->_view->render($this->_device.'/handbook/companies.page', $content);
     }
 
-    public function actionCompany($id){
+    /*public function actionCompany($id){
         $selectedCompany = $this->_companies->getCompany($id);
         include $this->_view->returnPagePath('application', $this->_device.'/handbook/ajax/successed/company.page');
-    }
+    }*/
 
 }

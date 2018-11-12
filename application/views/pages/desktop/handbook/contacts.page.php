@@ -17,20 +17,21 @@
             </div>
             <div class="cards-workplace">
                 <div class="cards-nav-bar">
-                    <a href="/handbook/contacts/" class="btn btn-success btn-sm">Контакты</a>
-                    <a href="/handbook/companies/" class="btn btn-success btn-sm">Компании</a>
+                    <a href="" onclick="loadContacts(); return false;" class="btn btn-success btn-sm">Контакты AJAX</a>
+                    <a href="" onclick="loadCompanies(); return false;" class="btn btn-success btn-sm">Компании AJAX</a>
                 </div>
-                <div class="alert alert-primary alert-dismissible fade show margin-top5 margin-bottom0" role="alert">
-                    <strong>Holy guacamole!</strong> Здесь отображены последние 10 добавленных контактов. Для поиска нужного контакта
-                    введите фамилию, имя, отчество или телефон человека в поле "Поиск".
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="cards-search-bar">
-                    <input id="search_contact" class="cards-search-input" type="text" placeholder="Начните поиск">
-                </div>
+
                 <div class="cards-content">
+                    <div class="alert alert-primary alert-dismissible fade show margin-top5 margin-bottom0" role="alert">
+                        <strong>Holy guacamole!</strong> Здесь отображены последние 10 добавленных контактов. Для поиска нужного контакта
+                        введите фамилию, имя, отчество или телефон человека в поле "Поиск".
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="cards-search-bar">
+                        <input id="search_contact" class="cards-search-input" type="text" placeholder="Начните поиск">
+                    </div>
                     <table cellpadding="1" cellspacing="1" border="0" class="table-mine  full-width box-shadow--2dp table-striped">
                         <thead>
                         <tr class="tr-table-header">
@@ -52,7 +53,7 @@
                                 <td><?=$contact['position'] ;?></td>
                                 <td><?=$contact['phone'] ;?></td>
                                 <td><?=$contact['email'] ;?></td>
-                                <td><a href="" onclick="showCompany(<?=$contact['id'] ;?>); return false;" class="btn btn-dark btn-sm"><?=$contact['company'] ;?></a></td>
+                                <td><a href="" onclick="showCompany(<?=$contact['company_id'] ;?>); return false;" class="btn btn-dark btn-sm"><?=$contact['company'] ;?></a></td>
                                 <td><a href="" onclick="showContact(<?=$contact['id'] ;?>); return false;" class="btn btn-primary btn-sm">Посмотреть</a></td>
                             </tr>
                         <?php endforeach; ?>

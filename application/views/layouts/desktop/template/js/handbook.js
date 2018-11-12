@@ -47,8 +47,26 @@ function loadContacts() {
     });
 }
 
+function loadCompanies() {
+    $.ajax({
+        type: "POST",
+        url: "/handbook/get/companies/",
+        cache: false,
+        success:function (response) {
+            var redirect = '/handbook/companies';
+            history.pushState('', '', redirect);
+            $("#title").text('Компании');
+            $(".cards-content").html(response);
+        }
+    })
+}
+
 $(function() {
-    $("#search_contact").keyup(function(){
+    //$('parent_static').on('event', 'children_dinamic', handler);
+    $(".cards-workplace").on('keyup', '#search_contact', function () {
+
+    //});
+    //$("#search_contact").keyup(function(){
         var search = $("#search_contact").val();
         if (search.length >= 5){
             $.ajax({

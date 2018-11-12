@@ -39,7 +39,7 @@
                     <?php if (isset($content['company'])):?>
                     <div class="handbook-card-info-content-line">
                         <i class="fa fa-home" aria-hidden="true"></i>
-                        Компания: <a href="" onclick="showCompany(<?=$content['id'] ;?>); return false;"><?=$content['company']; ?></a>
+                        Компания: <a href="" onclick="showCompany(<?=$content['company_id'] ;?>); return false;"><?=$content['company']; ?></a>
                     </div>
                     <?php endif; ?>
                     <?php if (isset($content['position'])):?>

@@ -8,7 +8,7 @@
 ?>
 <div class="alert alert-primary alert-dismissible fade show margin-top5 margin-bottom0" role="alert">
     <strong>Holy guacamole!</strong> Здесь отображены последние 10 добавленных контактов. Для поиска нужного контакта
-    введите фамилию, имя, отчество или телефон человека в поле "Поиск".
+    введите фамилию, имя человека или компанию в которой он работает в поле "Поиск".
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -37,7 +37,7 @@
             <td><?=$contact['position'] ;?></td>
             <td><?=$contact['phone'] ;?></td>
             <td><?=$contact['email'] ;?></td>
-            <td><a href="" onclick="showCompany(<?=$contact['id'] ;?>); return false;" class="btn btn-dark btn-sm"><?=$contact['company'] ;?></a></td>
+            <td><a href="" onclick="showCompany(<?=$contact['company_id'] ;?>); return false;" class="btn btn-dark btn-sm"><?=$contact['company'] ;?></a></td>
             <td><a href="" onclick="showContact(<?=$contact['id'] ;?>); return false;" class="btn btn-primary btn-sm">Посмотреть</a></td>
         </tr>
     <?php endforeach; ?>
@@ -49,4 +49,3 @@
         <div class="modal-content"></div>
     </div>
 </div>
-<script src="/application/views/layouts/desktop/template/js/handbook.js"></script>

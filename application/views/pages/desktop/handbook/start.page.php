@@ -18,6 +18,7 @@
             <div class="cards-workplace">
                 <div class="cards-nav-bar">
                     <a href="" onclick="loadContacts(); return false;" class="btn btn-success btn-sm">Контакты</a>
+                    <a href="" onclick="loadCompanies(); return false;" class="btn btn-success btn-sm">Компании</a>
                 </div>
                 <div class="cards-content">
 
