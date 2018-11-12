@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col-4">
             <div class="handbook-card-foto">
-                <img class="full-handbook-foto" src="<?='/application/handbook/storage/foto/'.$selectedContact['foto']?>">
+                <img class="full-handbook-foto" src="<?='/application/handbook/storage/foto/'.$content['foto']?>">
             </div>
             <div class="handbook-card-buttons-panel">
                 <div class="handbook-card-button-wrapper">
@@ -33,31 +33,31 @@
         <div class="col-8">
             <div class="handbook-card-info">
                 <div class="handbook-card-info-fullname">
-                    <strong><?=$selectedContact['surname'].' '.$selectedContact['firstname'].' '.$selectedContact['secondname'] ;?></strong>
+                    <strong><?=$content['surname'].' '.$content['firstname'].' '.$content['secondname'] ;?></strong>
                 </div>
                 <div class="handbook-card-info-content">
-                    <?php if (isset($selectedContact['company'])):?>
+                    <?php if (isset($content['company'])):?>
                     <div class="handbook-card-info-content-line">
                         <i class="fa fa-home" aria-hidden="true"></i>
-                        Компания: <a href="<?='/company/'.$selectedContact['company_id']; ?>"><?=$selectedContact['company']; ?></a>
+                        Компания: <a href="" onclick="showCompany(<?=$content['id'] ;?>); return false;"><?=$content['company']; ?></a>
                     </div>
                     <?php endif; ?>
-                    <?php if (isset($selectedContact['position'])):?>
+                    <?php if (isset($content['position'])):?>
                     <div class="handbook-card-info-content-line">
                         <i class="fa fa-user-tie" aria-hidden="true"></i>
-                        <?='Должность: '.$selectedContact['position']; ?>
+                        <?='Должность: '.$content['position']; ?>
                     </div>
                     <?php endif; ?>
-                    <?php if (isset($selectedContact['phones'])):?>
-                        <?php foreach ($selectedContact['phones'] as $phone) :?>
+                    <?php if (isset($content['phones'])):?>
+                        <?php foreach ($content['phones'] as $phone) :?>
                             <div class="handbook-card-info-content-line">
                                <i class="fa fa-phone-square" aria-hidden="true"></i>
                                <?=$phone['phone_description'].': '.$phone['phone_number'] ;?>
                             </div>
                         <?php endforeach; ?>
                     <?php endif; ?>
-                    <?php if (isset($selectedContact['emails'])):?>
-                        <?php foreach ($selectedContact['emails'] as $phone) :?>
+                    <?php if (isset($content['emails'])):?>
+                        <?php foreach ($content['emails'] as $phone) :?>
                             <div class="handbook-card-info-content-line">
                                 <i class="fa fa-envelope" aria-hidden="true"></i>
                                 <?=$phone['email_description'].': '.$phone['email'] ;?>

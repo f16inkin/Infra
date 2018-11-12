@@ -29,15 +29,15 @@ class ControllerHandbook extends ControllerApplication
         $this->_view->render($this->_device.'/handbook/start.page');
     }
 
+    public function actionControl(){
+        $this->_view->setTitle('Справочник. Управление');
+        $this->_view->render($this->_device.'/handbook/control.page');
+    }
+
     public function actionContacts(){
         $content = $this->_contacts->getContacts();
         $this->_view->setTitle('Контакты');
         $this->_view->render($this->_device.'/handbook/contacts.page', $content);
-    }
-
-    public function actionContact($id){
-        $selectedContact = $this->_contacts->getContact($id);
-        include $this->_view->returnPagePath('application', $this->_device.'/handbook/ajax/successed/contact.page');
     }
 
     public function actionCompanies(){

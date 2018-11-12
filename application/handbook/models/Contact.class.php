@@ -14,9 +14,14 @@ use core\libs\DatabaseException;
 
 class Contact extends Model
 {
+    private $_email;
+    private $_phone;
+
     public function __construct()
     {
         parent::__construct();
+        $this->_email = new Email();
+        $this->_phone = new Phone();
     }
 
     public function getContacts(){
@@ -42,8 +47,8 @@ class Contact extends Model
                     $contacts[$i]['foto'] = $row['foto'];
                     $contacts[$i]['company'] = $row['company'];
                     $contacts[$i]['company_id'] = $row['company_id'];
-                    $contacts[$i]['email'] = $this->getContactEmails($row['id'])[0]['email'];
-                    $contacts[$i]['phone'] = $this->getContactPhones($row['id'])[0]['phone_number'];
+                    $contacts[$i]['email'] = $this->_email->getByContact($row['id'])[0]['email'];
+                    $contacts[$i]['phone'] = $this->_phone->getByContact($row['id'])[0]['phone_number'];
                     $i++;
                 }
                 return $contacts;
@@ -77,50 +82,14 @@ class Contact extends Model
                     $contact['foto'] = $row['foto'];
                     $contact['company'] = $row['company'];
                     $contact['company_id'] = $row['company_id'];
-                    $contact['phones'] = $this->getContactPhones($id);
-                    $contact['emails'] = $this->getContactEmails($id);
+                    $contact['phones'] = $this->_phone->getByContact($id);
+                    $contact['emails'] = $this->_email->getByContact($id);
                 }
                 return $contact;
             }
             return null;
         }
         catch (DatabaseException $e){
-            echo "Troubles with database";
-        }
-    }
-
-    private function getContactPhones(int $contact_id){
-        try{
-            $query = ("SELECT * FROM `contact_phones`
-                       WHERE `contact` = :contact_id");
-            $result = $this->_db->prepare($query);
-            $result->execute([
-                'contact_id' => $contact_id
-            ]);
-            if ($result->rowCount() > 0){
-                $phones = $result->fetchAll();
-                return $phones;
-            }
-            return null;
-        }catch (DatabaseException $e){
-            echo "Troubles with database";
-        }
-    }
-
-    private function getContactEmails(int $contact_id){
-        try{
-            $query = ("SELECT * FROM `contact_emails`
-                       WHERE `contact` = :contact_id");
-            $result = $this->_db->prepare($query);
-            $result->execute([
-                'contact_id' => $contact_id
-            ]);
-            if ($result->rowCount() > 0){
-                $emails = $result->fetchAll();
-                return $emails;
-            }
-            return null;
-        }catch (DatabaseException $e){
             echo "Troubles with database";
         }
     }

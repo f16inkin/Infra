@@ -2,10 +2,11 @@
 /**
  * Created by PhpStorm.
  * User: Rain
- * Date: 01.07.2018
- * Time: 10:32
+ * Date: 06.11.2018
+ * Time: 10:03
  */
 ?>
+
 <div class="container-fluid">
     <div class="row padding-left15">
         <div class="col">
@@ -17,7 +18,8 @@
             </div>
             <div class="cards-workplace">
                 <div class="cards-nav-bar">
-                    <a href="" onclick="loadContacts(); return false;" class="btn btn-success btn-sm">Контакты</a>
+                    <a href="/handbook/contacts/" class="btn btn-success btn-sm">Контакты</a>
+                    <a href="/handbook/companies/" class="btn btn-success btn-sm">Компании</a>
                 </div>
                 <div class="cards-content">
 
@@ -26,4 +28,3 @@
         </div>
     </div>
 </div>
-<script src="/application/views/layouts/desktop/template/js/handbook.js"></script>

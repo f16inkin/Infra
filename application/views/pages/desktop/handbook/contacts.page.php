@@ -28,7 +28,7 @@
                     </button>
                 </div>
                 <div class="cards-search-bar">
-                    <input class="cards-search-input" type="text" placeholder="Начните поиск">
+                    <input id="search_contact" class="cards-search-input" type="text" placeholder="Начните поиск">
                 </div>
                 <div class="cards-content">
                     <table cellpadding="1" cellspacing="1" border="0" class="table-mine  full-width box-shadow--2dp table-striped">
@@ -43,7 +43,7 @@
                             <th width="25%">Действия</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="table-content">
                         <?php foreach ($content as $contact) :?>
                             <tr class="tr-table-content">
                                 <td hidden><input type="text" name="contact_id" value="<?=$contact['id'] ;?>"></td>
@@ -52,7 +52,7 @@
                                 <td><?=$contact['position'] ;?></td>
                                 <td><?=$contact['phone'] ;?></td>
                                 <td><?=$contact['email'] ;?></td>
-                                <td><a href="<?='/handbook/company/'.$contact['company_id'] ;?>" class="btn btn-dark btn-sm"><?=$contact['company'] ;?></a></td>
+                                <td><a href="" onclick="showCompany(<?=$contact['id'] ;?>); return false;" class="btn btn-dark btn-sm"><?=$contact['company'] ;?></a></td>
                                 <td><a href="" onclick="showContact(<?=$contact['id'] ;?>); return false;" class="btn btn-primary btn-sm">Посмотреть</a></td>
                             </tr>
                         <?php endforeach; ?>

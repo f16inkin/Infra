@@ -17,7 +17,7 @@
         <!--JQUERY-->
         <script src="/core/views/includes/jquery/jquery-3.3.1.min.js"></script>
         <!--JQUERY-->
-        <title><?=$this->_title?></title>
+        <title id="title"><?=$this->_title?></title>
     </head>
     <body>
     <div id="wrapper">

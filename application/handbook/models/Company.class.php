@@ -14,9 +14,12 @@ use core\libs\DatabaseException;
 
 class Company extends Model
 {
+    private $_contact;  //Модель для поиска информации о контакте
+
     public function __construct()
     {
         parent::__construct();
+        $this->_contact = new Contact();
     }
 
     public function getCompanies(){
@@ -34,8 +37,8 @@ class Company extends Model
                 while ($row = $result->fetch()){
                     $companies[$i]['id'] = $row['id'];
                     $companies[$i]['short_name'] = $row['short_name'];
-                    $companies[$i]['ceo'] = $this->getContact($row['ceo']);
-                    $companies[$i]['accountant'] = $this->getContact($row['accountant']);
+                    $companies[$i]['ceo'] = $this->_contact->getContact($row['ceo']);
+                    $companies[$i]['accountant'] = $this->_contact->getContact($row['accountant']);
                     $companies[$i]['logo'] = $row['logo'];
                     $companies[$i]['phone'] = $row['phone'];
                     $companies[$i]['email'] = $row['email'];
@@ -77,8 +80,8 @@ class Company extends Model
                     $company['okpo'] = $row['okpo'];
                     $company['oktmo'] = $row['oktmo'];
                     $company['ogrn'] = $row['ogrn'];
-                    $company['ceo'] = $this->getContact($row['ceo']);
-                    $company['accountant'] = $this->getContact($row['accountant']);
+                    $company['ceo'] = $this->_contact->getContact($row['ceo']);
+                    $company['accountant'] = $this->_contact->getContact($row['accountant']);
                     $company['real_address'] = $row['real_address'];
                     $company['legal_address'] = $row['legal_address'];
                     $company['logo'] = $row['logo'];
@@ -94,31 +97,6 @@ class Company extends Model
         }
         catch (DatabaseException $e){
             echo "Troubles with database";
-        }
-    }
-
-    private function getContact(int $contact_id){
-        try{
-            $query = ("SELECT `id`, `surname`, `firstname`, `secondname`, `position` FROM `contacts`
-            WHERE `id` = :contact_id");
-            $result = $this->_db->prepare($query);
-            $result->execute([
-                'contact_id' => $contact_id
-            ]);
-            if ($result->rowCount() > 0){
-                while ($row = $result->fetch()){
-                    $contact['id'] = $row['id'];
-                    $contact['surname'] = $row['surname'];
-                    $contact['firstname'] = $row['firstname'];
-                    $contact['secondname'] = $row['secondname'];
-                    $contact['position'] = $row['position'];
-                }
-                return $contact;
-            }
-            return null;
-        }
-        catch (DatabaseException $e){
-
         }
     }
 

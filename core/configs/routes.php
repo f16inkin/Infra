@@ -58,6 +58,12 @@ return[
         'construct' => false,
         'module' => true
     ],
+    //Панель управления и настройки из приложения
+    [
+        '^handbook/control$' => 'application/handbook/handbook/control',
+        'construct' => false,
+        'module' => true
+    ],
     //Контакты
     [
         '^handbook/contacts$' => 'application/handbook/handbook/contacts',
@@ -65,7 +71,7 @@ return[
         'module' => true
     ],
     [
-        '^handbook/contact/view/([0-9a-z]+)' => 'application/handbook/handbook/contact/$1',
+        '^handbook/contact/view/([0-9a-z]+)$' => 'application/handbook/handbook/contact/$1',
         'construct' => false,
         'module' => true
     ],
@@ -77,6 +83,23 @@ return[
     ],
     [
         '^handbook/company/view/([0-9a-z]+)$' => 'application/handbook/handbook/company/$1',
+        'construct' => false,
+        'module' => true
+    ],
+    //Для AJAX
+    [
+        '^handbook/get/contacts$' => 'application/handbook/contact/contacts',
+        'construct' => false,
+        'module' => true
+    ],
+    [
+        '^handbook/contact/view/([0-9a-z]+)$' => 'application/handbook/contact/contact/$1',
+        'construct' => false,
+        'module' => true
+    ],
+    //Поиск контактов
+    [
+        '^handbook/search/contact$' => 'application/handbook/search/contact/',
         'construct' => false,
         'module' => true
     ],
