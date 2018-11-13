@@ -7,7 +7,7 @@
  */
 ?>
 <div class="alert alert-primary alert-dismissible fade show margin-top5 margin-bottom0" role="alert">
-    <strong>Holy guacamole!</strong> Здесь отображены последние 10 добавленных контактов. Для поиска нужного контакта
+    <strong>Holy guacamole!</strong> Здесь отображены последние 5 добавленных контактов. Для поиска нужного контакта
     введите фамилию, имя человека или компанию в которой он работает в поле "Поиск".
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>

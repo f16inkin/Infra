@@ -12,7 +12,7 @@
             <div class="cards-toolbar">
                 <a href="/handbook/" class="btn background-darkred btn-sm">
                     <i class="fa fa-address-book" aria-hidden="true"></i> Справочник</a>
-                <a href="/handbook/control/" class="btn background-darkred btn-sm">
+                <a href="/handbook/management/" class="btn background-darkred btn-sm">
                     <i class="fa fa-cog" aria-hidden="true"></i> Управление</a>
             </div>
             <div class="cards-workplace">

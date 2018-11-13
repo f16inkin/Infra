@@ -60,7 +60,7 @@ return[
     ],
     //Панель управления и настройки из приложения
     [
-        '^handbook/control$' => 'application/handbook/handbook/control',
+        '^handbook/management$' => 'application/handbook/management/index',
         'construct' => false,
         'module' => true
     ],
@@ -70,22 +70,12 @@ return[
         'construct' => false,
         'module' => true
     ],
-    /*[
-        '^handbook/contact/view/([0-9a-z]+)$' => 'application/handbook/handbook/contact/$1',
-        'construct' => false,
-        'module' => true
-    ],*/
     //Компании
     [
         '^handbook/companies$' => 'application/handbook/handbook/companies',
         'construct' => false,
         'module' => true
     ],
-    /*[
-        '^handbook/company/view/([0-9a-z]+)$' => 'application/handbook/handbook/company/$1',
-        'construct' => false,
-        'module' => true
-    ],*/
     //Для AJAX
     [
         '^handbook/get/contacts$' => 'application/handbook/contact/contacts',

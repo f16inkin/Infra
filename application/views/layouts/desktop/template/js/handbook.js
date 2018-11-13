@@ -20,6 +20,36 @@ function showContact(id){
     });
 }
 
+function addContact() {
+    $('#contact-modal-content').load('/application/views/pages/desktop/handbook/ajax/successed/add-contact.php');
+}
+
+function addContactPhone() {
+    var string = '<div class="modal-contact-phone-input-wrapper">'+
+        '<div class="input-group mb-2">'+
+        '<div class="input-group-prepend">'+
+        '<div class="input-group-text"><i class="fa fa-phone-square" aria-hidden="true"></i></div>'+
+        '</div>'+
+        '<input type="text" class="form-control form-control-sm" id="modal-contact-phone" name="modal-contact-phone" placeholder="Введите название">'+
+        '<input type="text" class="form-control form-control-sm" id="modal-contact-phone-number" name="modal-contact-phone-number" placeholder="Введите номер">'+
+        '</div>'+
+        '</div>';
+    $("#modal-contact-phones-content").append(string);
+}
+
+function addContactEmail() {
+    var string = '<div class="modal-contact-email-input-wrapper">'+
+        '<div class="input-group mb-2">'+
+        '<div class="input-group-prepend">'+
+        '<div class="input-group-text"><i class="fa fa-envelope" aria-hidden="true"></i></div>'+
+        '</div>'+
+        '<input type="text" class="form-control form-control-sm" id="modal-contact-email" name="modal-contact-email" placeholder="Введите название">'+
+        '<input type="text" class="form-control form-control-sm" id="modal-contact-email-address" name="modal-contact-email-number" placeholder="Введите адрес">'+
+        '</div>'+
+        '</div>';
+    $("#modal-contact-email-content").append(string);
+}
+
 function showCompany(id){
     $.ajax({
         type: "POST",
@@ -38,6 +68,9 @@ function loadContacts() {
         type: "POST",
         url: "/handbook/get/contacts/",
         cache: false,
+        beforeSend: function () {
+            $(".cards-content").html('Loading');
+        },
         success:function (response) {
             var redirect = '/handbook/contacts/';
             history.pushState('', '', redirect);
@@ -62,11 +95,7 @@ function loadCompanies() {
 }
 
 $(function() {
-    //$('parent_static').on('event', 'children_dinamic', handler);
     $(".cards-workplace").on('keyup', '#search_contact', function () {
-
-    //});
-    //$("#search_contact").keyup(function(){
         var search = $("#search_contact").val();
         if (search.length >= 5){
             $.ajax({
@@ -96,38 +125,18 @@ $(function() {
     });
 });
 $(function() {
-    $("#search_contact").focusout(function(){
-       $("#search_contact").val('');
+    $(".cards-workplace").on('focusout', '.cards-search-input', function () {
+       $(".cards-search-input").val('');
         $(".cards-search-input").css("border-color", "black");
-        /*$.ajax({
-         type: "POST",
-         url: "/handbook/search/contact",
-         data: {"search": search},
-         cache: false,
-         success: function(response){
-         $("#table-content").html(response);
-         }
-         });
-         return false;*/
     });
 });
 $(function() {
-    $(".cards-search-input").focusin(function(){
+    $(".cards-workplace").on('focusin', '.cards-search-input', function () {
         $(".cards-search-input").css("border-color", "green");
-        /*$.ajax({
-         type: "POST",
-         url: "/handbook/search/contact",
-         data: {"search": search},
-         cache: false,
-         success: function(response){
-         $("#table-content").html(response);
-         }
-         });
-         return false;*/
     });
 });
 
-var data = $.parseJSON(response);
+/*var data = $.parseJSON(response);
 
 $(data).each(function(i,val)
 {
@@ -135,4 +144,4 @@ $(data).each(function(i,val)
     {
         console.log(key + " : " + val);
     });
-});
+});*/

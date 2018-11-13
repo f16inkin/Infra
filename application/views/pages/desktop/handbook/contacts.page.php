@@ -12,7 +12,7 @@
             <div class="cards-toolbar">
                 <a href="/handbook/" class="btn background-darkred btn-sm">
                     <i class="fa fa-address-book" aria-hidden="true"></i> Справочник</a>
-                <a class="btn background-darkred btn-sm">
+                <a href="/handbook/management/" class="btn background-darkred btn-sm">
                     <i class="fa fa-cog" aria-hidden="true"></i> Управление</a>
             </div>
             <div class="cards-workplace">
@@ -23,7 +23,7 @@
 
                 <div class="cards-content">
                     <div class="alert alert-primary alert-dismissible fade show margin-top5 margin-bottom0" role="alert">
-                        <strong>Holy guacamole!</strong> Здесь отображены последние 10 добавленных контактов. Для поиска нужного контакта
+                        <strong>Holy guacamole!</strong> Здесь отображены последние 5 добавленных контактов. Для поиска нужного контакта
                         введите фамилию, имя, отчество или телефон человека в поле "Поиск".
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>

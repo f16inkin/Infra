@@ -31,8 +31,8 @@ class Contact extends Model
             `companies`.`id` as `company_id`
             FROM `contacts`
             LEFT JOIN `companies` ON `contacts`.`company` = `companies`.`id`
-            ORDER BY `contacts`.`id` ASC
-            LIMIT 10
+            ORDER BY `contacts`.`id` DESC
+            LIMIT 5
             ");
             $result = $this->_db->prepare($query);
             $result->execute();

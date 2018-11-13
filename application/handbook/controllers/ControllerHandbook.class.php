@@ -29,11 +29,6 @@ class ControllerHandbook extends ControllerApplication
         $this->_view->render($this->_device.'/handbook/start.page');
     }
 
-    public function actionControl(){
-        $this->_view->setTitle('Справочник. Управление');
-        $this->_view->render($this->_device.'/handbook/control.page');
-    }
-
     public function actionContacts(){
         $content = $this->_contacts->getContacts();
         $this->_view->setTitle('Контакты');
@@ -45,10 +40,5 @@ class ControllerHandbook extends ControllerApplication
         $this->_view->setTitle('Компании');
         $this->_view->render($this->_device.'/handbook/companies.page', $content);
     }
-
-    /*public function actionCompany($id){
-        $selectedCompany = $this->_companies->getCompany($id);
-        include $this->_view->returnPagePath('application', $this->_device.'/handbook/ajax/successed/company.page');
-    }*/
 
 }
