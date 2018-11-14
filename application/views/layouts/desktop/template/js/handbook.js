@@ -24,6 +24,39 @@ function addContact() {
     $('#contact-modal-content').load('/application/views/pages/desktop/handbook/ajax/successed/add-contact.php');
 }
 
+function saveContact() {
+    var surname = $("input[name='modal-contact-surname']" ).val();
+    var firstname = $("input[name='modal-contact-firstname']" ).val();
+    var secondname = $("input[name='modal-contact-secondname']" ).val();
+    var position = $("input[name='modal-contact-position']" ).val();
+    var phone_objects = [];
+    var email_objects = [];
+    $('input[name="modal-contact-phone"]').each(function() {
+        var phone_object = {};
+        phone_object['name'] = $(this).val();
+        var number = $(this).siblings('input[name="modal-contact-phone-number"]');
+        phone_object['number'] = number.val();
+        phone_objects.push(phone_object);
+    });
+    $('input[name="modal-contact-email"]').each(function() {
+        var email_object = {};
+        email_object['name'] = $(this).val();
+        var address = $(this).siblings('input[name="modal-contact-email-address"]');
+        email_object['address'] = address.val();
+        email_objects.push(email_object);
+    });
+    $.ajax({
+        type: "POST",
+        url: "/handbook/contact/save/",
+        data: {"surname": surname, "firstname": firstname, "secondname": secondname, "position": position,
+               "phone_objects": phone_objects, "email_objects": email_objects},
+        cache: false,
+        success:function (response) {
+
+        }
+    });
+}
+
 function addContactPhone() {
     var string = '<div class="modal-contact-phone-input-wrapper">'+
         '<div class="input-group mb-2">'+
@@ -44,7 +77,7 @@ function addContactEmail() {
         '<div class="input-group-text"><i class="fa fa-envelope" aria-hidden="true"></i></div>'+
         '</div>'+
         '<input type="text" class="form-control form-control-sm" id="modal-contact-email" name="modal-contact-email" placeholder="Введите название">'+
-        '<input type="text" class="form-control form-control-sm" id="modal-contact-email-address" name="modal-contact-email-number" placeholder="Введите адрес">'+
+        '<input type="text" class="form-control form-control-sm" id="modal-contact-email-address" name="modal-contact-email-address" placeholder="Введите адрес">'+
         '</div>'+
         '</div>';
     $("#modal-contact-email-content").append(string);

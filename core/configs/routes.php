@@ -97,6 +97,11 @@ return[
         'construct' => false,
         'module' => true
     ],
+    [
+        '^handbook/contact/save$' => 'application/handbook/contact/save',
+        'construct' => false,
+        'module' => true
+    ],
     //Поиск контактов
     [
         '^handbook/search/contact$' => 'application/handbook/search/contact/',

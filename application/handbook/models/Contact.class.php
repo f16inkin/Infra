@@ -94,4 +94,49 @@ class Contact extends Model
         }
     }
 
+    public function insert(string $surname, string $firstname, string $secondname, string $position, int $company,
+    $phones, $emails){
+        try{
+            $query = ("INSERT INTO `contacts` (`surname`, `firstname`, `secondname`, `position`, `company`)
+                       VALUES (:surname, :firstname, :secondname, :position, :company)");
+            $result = $this->_db->prepare($query);
+            $result->execute([
+                'surname' => $surname,
+                'firstname' => $firstname,
+                'secondname' => $secondname,
+                'position' => $position,
+                'company' => $company
+            ]);
+            if ($result){
+                $user_id = $this->_db->lastInsertId();
+                if(isset($phones)){
+                    //Удаляю массивы с пустыми значениями
+                    for ($i = 0; $i < count($phones); $i++){
+                        $name = preg_replace('/[^а-яА-Я.]/', '', $phones[$i]['name']);
+                        $number = preg_replace('/[^0-9.]/', '', $phones[$i]['number']);
+                        if ($name == '' or $number == ''){
+                            unset($phones[$i]);
+                        }
+                    }
+                    //Формирую запросы
+                    $query = ("INSERT INTO `contact_phones` (`contact`, `phone_number`, `phone_description`) VALUES ");
+                    foreach ($phones as $phone){
+                        $query .= sprintf("(%s, %s, '%s'),",
+                            $user_id,
+                            $phone['number'],
+                            $phone['name']
+                        );
+                    }
+                    $query = rtrim($query, ',');
+                    $result = $this->_db->prepare($query);
+                    $result->execute();
+
+                }
+            }
+
+        }catch (DatabaseException $e){
+
+        }
+    }
+
 }

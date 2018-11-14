@@ -30,7 +30,7 @@
                     <strong>Добавить новый контакт</strong>
                 </div>
                 <div class="handbook-card-info-content">
-                    <form name="add-contact-form" method="POST">
+                    <!--<form name="add-contact-form" method="POST">-->
                         <!--Фамилия-->
                         <label for="modal-contact-surname"><strong>Фамилия:</strong></label>
                         <div class="input-group mb-2">
@@ -91,12 +91,12 @@
                                     <i class="fa fa-plus-circle"></i> Добавить еще</a>
                             </div>
                         </div>
-                    </form>
+                    <!--</form>-->
                 </div>
             </div>
         </div>
     </div>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-success">Сохранить</button>
+    <button type="button"  onclick="saveContact(); return false;" class="btn btn-success">Сохранить</button>
 </div>
