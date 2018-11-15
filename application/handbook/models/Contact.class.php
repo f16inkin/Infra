@@ -24,6 +24,65 @@ class Contact extends Model
         $this->_phone = new Phone();
     }
 
+    /**
+     * Вставка телефонов
+     *
+     * Валидирует входящие значения в соответствие с регулярными выражениями. Собирает все данные в один запрос и разом
+     * добавляет их в таблицу
+     *
+     * @param int $user_id
+     * @param array $phones
+     */
+    private function insertPhones(int $user_id, array $phones){
+        //Определяю размер входящего массива: в том числе и пустые значения
+        $array_weight = count($phones);
+        for ($i = 0; $i < $array_weight; $i++){
+            //Валидация по регулярке
+            $name = preg_replace('/[^а-яА-Я.]/', '', $phones[$i]['name']);
+            $number = preg_replace('/[^0-9.]/', '', $phones[$i]['number']);
+            //Так как могут придти пустые значения: нет названия телефона или нет номера, удаляю эти строки из массива
+            if ($name == '' or $number == ''){
+                unset($phones[$i]);
+            }
+        }
+        //Формирую запросы
+        $query = ("INSERT INTO `contact_phones` (`contact`, `phone_number`, `phone_description`) VALUES ");
+        foreach ($phones as $phone){
+            $query .= sprintf("(%s, %s, '%s'),",
+                $user_id,
+                $phone['number'],
+                $phone['name']
+            );
+        }
+        //Обрезаю запятую в конце строки, чтобы сформировать валидный запрос
+        $query = rtrim($query, ',');
+        $result = $this->_db->prepare($query);
+        //Верну ответ о выполнении true : false
+        return $result->execute();
+    }
+
+    private function insertEmails(int $user_id, array $emails){
+        $array_weight = count($emails);
+        for ($i = 0; $i < $array_weight; $i++){
+            $name = preg_replace('/[^а-яА-Я.]/', '', $emails[$i]['name']);
+            $address = preg_replace('/[^a-zA-Z.]/', '', $emails[$i]['address']);
+            if ($name == '' or $address == ''){
+                unset($emails[$i]);
+            }
+        }
+        $query = ("INSERT INTO `contact_emails` (`contact`, `email`, `email_description`) VALUES ");
+        foreach ($emails as $email){
+            $query .= sprintf("(%s, '%s', '%s'),",
+                $user_id,
+                $email['address'],
+                $email['name']
+            );
+        }
+        $query = rtrim($query, ',');
+        $result = $this->_db->prepare($query);
+        $result->execute();
+    }
+
     public function getContacts(){
         try{
             $query = ("SELECT `contacts`.`id`, `contacts`.`surname`, `contacts`.`firstname`, `contacts`.`secondname`,
@@ -94,8 +153,22 @@ class Contact extends Model
         }
     }
 
+    /**
+     * Вставка данных о контакте. Основаня информация, теелфоны, емайл.
+     *
+     * Три этапа вставки: Вставка основной информации, вставка телефонов если такие есть, вставка адресов электронных
+     * почт если такие имеются.
+     *
+     * @param string $surname
+     * @param string $firstname
+     * @param string $secondname
+     * @param string $position
+     * @param int $company
+     * @param $phones
+     * @param $emails
+     */
     public function insert(string $surname, string $firstname, string $secondname, string $position, int $company,
-    $phones, $emails){
+                           $phones, $emails){
         try{
             $query = ("INSERT INTO `contacts` (`surname`, `firstname`, `secondname`, `position`, `company`)
                        VALUES (:surname, :firstname, :secondname, :position, :company)");
@@ -107,32 +180,28 @@ class Contact extends Model
                 'position' => $position,
                 'company' => $company
             ]);
+            $messages = [];
             if ($result){
                 $user_id = $this->_db->lastInsertId();
                 if(isset($phones)){
-                    //Удаляю массивы с пустыми значениями
-                    for ($i = 0; $i < count($phones); $i++){
-                        $name = preg_replace('/[^а-яА-Я.]/', '', $phones[$i]['name']);
-                        $number = preg_replace('/[^0-9.]/', '', $phones[$i]['number']);
-                        if ($name == '' or $number == ''){
-                            unset($phones[$i]);
-                        }
+                    if ($this->insertPhones($user_id, $phones)){
+                        $messages['success']['in_phones'] = 'Телефон добавлен';
+                    }else{
+                        $messages['error']['in_phones'] = 'Данные не могут быть вставленны в связанные телефоны';
                     }
-                    //Формирую запросы
-                    $query = ("INSERT INTO `contact_phones` (`contact`, `phone_number`, `phone_description`) VALUES ");
-                    foreach ($phones as $phone){
-                        $query .= sprintf("(%s, %s, '%s'),",
-                            $user_id,
-                            $phone['number'],
-                            $phone['name']
-                        );
-                    }
-                    $query = rtrim($query, ',');
-                    $result = $this->_db->prepare($query);
-                    $result->execute();
-
                 }
+                if (isset($emails)){
+                    if ($this->insertEmails($user_id, $emails)){
+                        $messages['success']['in_emails'] = 'Эелектронная почта добавлена';
+                    }else{
+                        $messages['error']['in_emails'] = 'Данные не могут быть вставленны в связанные email';
+                    }
+                }
+                $messages['success']['in_contact'] = 'Контакт успешно сохранен';
+            }else{
+                $messages['error']['in_contact'] = 'Данный контакт не может быть добавлен';
             }
+            return $messages;
 
         }catch (DatabaseException $e){
 
