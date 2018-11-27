@@ -52,7 +52,24 @@ function saveContact() {
                "phone_objects": phone_objects, "email_objects": email_objects},
         cache: false,
         success:function (response) {
-
+            var res = JSON.parse(response);
+            //Проверяю тип сообщения. Если успешна операция то ставлю зеленый цвет для элемента, иначе красный
+            if(res.status === 'successed'){
+                $(".handbook-card-info-caption").css({"color": "green"});
+            }else {
+                $(".handbook-card-info-caption").css({"color": "red"});
+            }
+            //Вывоже в элемент содержащееся сообщение из JSON
+            $(".handbook-card-info-caption").text(res.message);
+            //Очищаю поля
+            $("input[name='modal-contact-surname']").val('');
+            $("input[name='modal-contact-firstname']" ).val('');
+            $("input[name='modal-contact-secondname']" ).val('');
+            $("input[name='modal-contact-position']" ).val('');
+            //Очищаю телефоны
+            $(".modal-contact-phone-input-wrapper").remove();
+            //Очищаю email
+            $(".modal-contact-email-input-wrapper").remove();
         }
     });
 }
@@ -126,6 +143,27 @@ function loadCompanies() {
         }
     })
 }
+
+
+$("#contact-modal-content").on('keyup', '#modal-contact-company', function () {
+    var search = $('#modal-contact-company').val();
+    var string = '<div id="modal-contact-company-search" style="width: 100%">' +
+                 '<div class="modal-contact-company-search-result">' +
+                 '<i>'+search+'</i>' +
+                 '</div></div>';
+    $("#modal-contact-company-search").append(string);
+});
+
+$("#contact-modal-content").on('click', '.modal-contact-company-search-result', function () {
+    var text = $(this).text();
+    $('#modal-contact-company').val(text);
+});
+$("#contact-modal-content").on('click', '#modal-contact-company', function () {
+    $('#modal-contact-company').val('');
+    $('#modal-contact-company').css({"border-color": "green"});
+});
+
+
 
 $(function() {
     $(".cards-workplace").on('keyup', '#search_contact', function () {

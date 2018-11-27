@@ -164,12 +164,21 @@ class Contact extends Model
      * @param string $secondname
      * @param string $position
      * @param int $company
-     * @param $phones
-     * @param $emails
+     * @param array | null $phones
+     * @param array | null $emails
      */
     public function insert(string $surname, string $firstname, string $secondname, string $position, int $company,
                            $phones, $emails){
         try{
+            $messages = [];
+            //Мало ли JS не отвалидировал входящее значение. Если поля имя и фамилия пустые, то будет оповещение об
+            //этом со сторны сервера.
+            if(empty($surname) OR empty($firstname)){
+                $messages['status'] = 'failed';
+                $messages['message'] = 'Фамилия или имя не заполнены. Контакт не может быть создан.';
+                return $messages;
+            }
+            //Если минимальные условаия выполнены, то формирую запрос на вставку контакта
             $query = ("INSERT INTO `contacts` (`surname`, `firstname`, `secondname`, `position`, `company`)
                        VALUES (:surname, :firstname, :secondname, :position, :company)");
             $result = $this->_db->prepare($query);
@@ -180,26 +189,20 @@ class Contact extends Model
                 'position' => $position,
                 'company' => $company
             ]);
-            $messages = [];
+            //Если вставка контакта прошла успешно, получаю его id и вставляю телефоны и email в случае если они есть.
             if ($result){
                 $user_id = $this->_db->lastInsertId();
                 if(isset($phones)){
-                    if ($this->insertPhones($user_id, $phones)){
-                        $messages['success']['in_phones'] = 'Телефон добавлен';
-                    }else{
-                        $messages['error']['in_phones'] = 'Данные не могут быть вставленны в связанные телефоны';
-                    }
+                    $this->insertPhones($user_id, $phones);
                 }
                 if (isset($emails)){
-                    if ($this->insertEmails($user_id, $emails)){
-                        $messages['success']['in_emails'] = 'Эелектронная почта добавлена';
-                    }else{
-                        $messages['error']['in_emails'] = 'Данные не могут быть вставленны в связанные email';
-                    }
+                    $this->insertEmails($user_id, $emails);
                 }
-                $messages['success']['in_contact'] = 'Контакт успешно сохранен';
+                $messages['status'] = 'successed';
+                $messages['message'] = 'Контакт успешно добавлен';
             }else{
-                $messages['error']['in_contact'] = 'Данный контакт не может быть добавлен';
+                $messages['status'] = 'failed';
+                $messages['message'] = 'Ошибка при добавлении контакта';
             }
             return $messages;
 

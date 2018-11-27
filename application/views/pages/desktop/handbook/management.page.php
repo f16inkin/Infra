@@ -31,8 +31,6 @@
     </div>
 </div>
 
-<script src="/application/views/layouts/desktop/template/js/handbook.js"></script>
-
 <!-- Modal Добавить контакт-->
 <div class="modal fade bd-example-modal-lg" id="addModalCenter" tabindex="-1" role="dialog" aria-labelledby="addModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -41,3 +39,5 @@
         </div>
     </div>
 </div>
+
+<script src="/application/views/layouts/desktop/template/js/handbook.js"></script>

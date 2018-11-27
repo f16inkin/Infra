@@ -27,7 +27,7 @@
         <div class="col-8">
             <div class="handbook-card-info">
                 <div class="handbook-card-info-fullname">
-                    <strong>Добавить новый контакт</strong>
+                    <strong class="handbook-card-info-caption">Добавить новый контакт</strong>
                 </div>
                 <div class="handbook-card-info-content">
                     <!--<form name="add-contact-form" method="POST">-->
@@ -70,6 +70,11 @@
                                 <div class="input-group-text"><i class="fa fa-home" aria-hidden="true"></i></div>
                             </div>
                             <input type="text" class="form-control form-control-sm" id="modal-contact-company" name="modal-contact-company" placeholder="Выберите компанию">
+                            <div id="modal-contact-company-search" style="width: 100%">
+                                <div class="modal-contact-company-search-result">
+                                    <i>Выбор №1</i>
+                                </div>
+                            </div>
                         </div>
                         <!--Телефон-->
                         <hr>

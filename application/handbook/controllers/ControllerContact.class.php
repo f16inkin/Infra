@@ -48,13 +48,15 @@ class ControllerContact extends ControllerApplication
      * Сохраняет данные контакта в базу данных
      */
     public function actionSave(){
-        $surname = $_POST['surname'];
-        $firstname = $_POST['firstname'];
+        $surname = isset($_POST['surname']) ? $_POST['surname'] : null;
+        $firstname = isset($_POST['firstname']) ? $_POST['firstname'] : null;
         $secondname = $_POST['secondname'];
         $position = $_POST['position'];
         $company = 1;
         $phone_objects = isset($_POST['phone_objects']) ? $_POST['phone_objects'] : null;
         $email_objects = isset($_POST['email_objects']) ? $_POST['email_objects'] : null;
-        $this->_contact->insert($surname, $firstname, $secondname, $position, $company, $phone_objects, $email_objects);
+        $result = $this->_contact->insert($surname, $firstname, $secondname, $position, $company, $phone_objects, $email_objects);
+        //Отправляю сообщение полученное в результате выполнения в response
+        echo json_encode($result);
     }
 }
