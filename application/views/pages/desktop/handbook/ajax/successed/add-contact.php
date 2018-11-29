@@ -69,12 +69,9 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text"><i class="fa fa-home" aria-hidden="true"></i></div>
                             </div>
-                            <input type="text" class="form-control form-control-sm" id="modal-contact-company" name="modal-contact-company" placeholder="Выберите компанию">
-                            <div id="modal-contact-company-search" style="width: 100%">
-                                <div class="modal-contact-company-search-result">
-                                    <i>Выбор №1</i>
-                                </div>
-                            </div>
+                            <input type="text" id="modal-contact-company-id" name="modal-contact-company-id" hidden>
+                            <input type="text" class="form-control form-control-sm" id="modal-contact-company-name" name="modal-contact-company-name" placeholder="Выберите компанию">
+                            <div id="modal-contact-company-search" style="width: 100%"></div>
                         </div>
                         <!--Телефон-->
                         <hr>

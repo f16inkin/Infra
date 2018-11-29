@@ -459,5 +459,10 @@ input {
 
     border: solid 1px;
     height: 30px;
-
+}
+.modal-contact-company-search-result:hover{
+    background-color: #dce1e5;
+}
+.btn-delete{
+    margin-left: 3px;
 }

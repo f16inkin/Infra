@@ -63,4 +63,15 @@ class Search extends Model
             echo 'Database error';
         }
     }
+
+    public function getCompany(string $value){
+        try{
+            if (strlen($value) >= 3){
+
+            }
+        }
+        catch (DatabaseException $e){
+            echo 'Database error';
+        }
+    }
 }

@@ -36,7 +36,11 @@ class ControllerSearch extends Controller
     }
 
     public function actionCompany(){
-        //Поиск компании при вводе значения в поле поиска
+        $search_value = $_POST['search'];
+        $companies = $this->_search->getCompany($search_value);
+        if (isset($companies)){
+            echo json_encode($companies);
+        }
     }
 
 }

@@ -82,6 +82,7 @@ function addContactPhone() {
         '</div>'+
         '<input type="text" class="form-control form-control-sm" id="modal-contact-phone" name="modal-contact-phone" placeholder="Введите название">'+
         '<input type="text" class="form-control form-control-sm" id="modal-contact-phone-number" name="modal-contact-phone-number" placeholder="Введите номер">'+
+        '<button type="button" class="btn btn-danger btn-sm btn-delete">&times;</button>' +
         '</div>'+
         '</div>';
     $("#modal-contact-phones-content").append(string);
@@ -95,6 +96,7 @@ function addContactEmail() {
         '</div>'+
         '<input type="text" class="form-control form-control-sm" id="modal-contact-email" name="modal-contact-email" placeholder="Введите название">'+
         '<input type="text" class="form-control form-control-sm" id="modal-contact-email-address" name="modal-contact-email-address" placeholder="Введите адрес">'+
+        '<button type="button" class="btn btn-danger btn-sm btn-delete">&times;</button>' +
         '</div>'+
         '</div>';
     $("#modal-contact-email-content").append(string);
@@ -144,65 +146,117 @@ function loadCompanies() {
     })
 }
 
+/**
+ * Статически загружаемые элементы
+ *
+ */
+var modal_content = $("#contact-modal-content"); //Блок в который подгружается страница с полями для добавления
+                                                 //контакта или компании
 
-$("#contact-modal-content").on('keyup', '#modal-contact-company', function () {
-    var search = $('#modal-contact-company').val();
-    var string = '<div id="modal-contact-company-search" style="width: 100%">' +
-                 '<div class="modal-contact-company-search-result">' +
-                 '<i>'+search+'</i>' +
-                 '</div></div>';
-    $("#modal-contact-company-search").append(string);
+/**
+ * Слушатель событий
+ * Сработает когда будет нажата кнопка удаления строки телефона или почты в окне добаления
+ * Если телефон или почту передумали добавлять, то можно удалить введеную запис нажав на эту кнопку
+ */
+modal_content.on('click' , '.btn-delete', function () {
+    var string = $(this).parent().parent();
+    string.remove();
 });
 
-$("#contact-modal-content").on('click', '.modal-contact-company-search-result', function () {
+/**
+ * Слушатель событий
+ * Сработает когда в поле компании будет вводится имя для поиска
+ * Отправляет на сервер AJAX запрос, получает JSON ответ
+ * Формирует строки и добавляет их
+ */
+modal_content.on('keyup', '#modal-contact-company-name', function () {
+    var search = $('#modal-contact-company-name').val();
+    if (search.length > 3){
+        var request = $.ajax({
+            type: "POST",
+            url: "/handbook/search/company",
+            data: {"search": search},
+            cache: false
+        });
+        request.done(function(response){
+            var res = JSON.parse(response);
+            var string = '<div class="modal-contact-company-search-result">' +
+                '<i hidden>'+res.id+'</i>' +
+                '<i>'+res.name+'</i>' +
+                '</div></div>';
+            $("#modal-contact-company-search").append(string);
+        });
+    }
+});
+
+/**
+ * Слушатель событий
+ * Сработает при клике на поле поиска компании
+ * Выделит введеный в поле текст
+ */
+modal_content.on('click', '#modal-contact-company-name', function () {
+    $(this).select();
+});
+
+/**
+ * Слушатель событий
+ * Сработает когда я выберу результат поиска из предложенных
+ * Выбирает значение и вставляет его в поле поиска, а так же устанавливает id компании в специальное поле для
+ * отправки его на сервер
+ */
+modal_content.on('click', '.modal-contact-company-search-result', function () {
+    var company_id = $('#modal-contact-company-id');
+    var company_name = $('#modal-contact-company-name');
+    global = true;
     var text = $(this).text();
-    $('#modal-contact-company').val(text);
-});
-$("#contact-modal-content").on('click', '#modal-contact-company', function () {
-    $('#modal-contact-company').val('');
-    $('#modal-contact-company').css({"border-color": "green"});
+    company_id.val(1);
+    company_name.val(text);
+    company_name.css({"border-color": "green"});
+    $('div.modal-contact-company-search-result').remove();
 });
 
-
+/**
+ * Слушатель событий
+ * Сработает когда в окне контактов, будет производится поиск.
+ *
+ */
+$(".cards-workplace").on('keyup', '#search_contact', function () {
+    var search = $("#search_contact").val();
+    if (search.length >= 5){
+        var request =  $.ajax({
+            type: "POST",
+            url: "/handbook/search/contact",
+            data: {"search": search},
+            cache: false
+        });
+        request.done(function(response){
+            $("#table-content").empty();
+            var data = JSON.parse(response);
+            $.each(data, function (key, value) {
+                var string = '<tr class="tr-table-content">' +
+                    '<td><img class="preview-handbook-foto" src="/application/handbook/storage/foto/'+value.foto+'"></td>' +
+                    '<td>'+value.surname+" "+value.firstname+" "+value.secondname+'</td>' +
+                    '<td>'+value.position+'</td>' +
+                    '<td>'+value.phone+'</td>' +
+                    '<td>'+value.email+'</td>' +
+                    '<td><a class="btn btn-dark btn-sm" href="" onclick="showCompany('+value.company_id+'); return false;">'+value.company_name+'</a></td>' +
+                    '<td><a class="btn btn-primary btn-sm" href="" onclick="showContact('+value.id+'); return false;">Посмотреть</a></td>' +
+                    '</tr>';
+                $("#table-content").append(string);
+            })
+        });
+        return false;
+    }
+});
 
 $(function() {
-    $(".cards-workplace").on('keyup', '#search_contact', function () {
-        var search = $("#search_contact").val();
-        if (search.length >= 5){
-            $.ajax({
-                type: "POST",
-                url: "/handbook/search/contact",
-                data: {"search": search},
-                cache: false,
-                success: function(response){
-                    $("#table-content").empty();
-                    var data = JSON.parse(response);
-                    $.each(data, function (key, value) {
-                        var string = '<tr class="tr-table-content">' +
-                            '<td><img class="preview-handbook-foto" src="/application/handbook/storage/foto/'+value.foto+'"></td>' +
-                            '<td>'+value.surname+" "+value.firstname+" "+value.secondname+'</td>' +
-                            '<td>'+value.position+'</td>' +
-                            '<td>'+value.phone+'</td>' +
-                            '<td>'+value.email+'</td>' +
-                            '<td><a class="btn btn-dark btn-sm" href="" onclick="showCompany('+value.company_id+'); return false;">'+value.company_name+'</a></td>' +
-                            '<td><a class="btn btn-primary btn-sm" href="" onclick="showContact('+value.id+'); return false;">Посмотреть</a></td>' +
-                            '</tr>';
-                        $("#table-content").append(string);
-                    })
-                }
-            });
-            return false;
-        }
-    });
-});
-$(function() {
-    $(".cards-workplace").on('focusout', '.cards-search-input', function () {
+    $(".cards-workplace").on('blur', '.cards-search-input', function () {
        $(".cards-search-input").val('');
         $(".cards-search-input").css("border-color", "black");
     });
 });
 $(function() {
-    $(".cards-workplace").on('focusin', '.cards-search-input', function () {
+    $(".cards-workplace").on('focus', '.cards-search-input', function () {
         $(".cards-search-input").css("border-color", "green");
     });
 });
