@@ -108,4 +108,9 @@ return[
         'construct' => false,
         'module' => true
     ],
+    [
+        '^handbook/search/company$' => 'application/handbook/search/company/',
+        'construct' => false,
+        'module' => true
+    ],
 ];

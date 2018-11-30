@@ -392,6 +392,23 @@ input {
     height: 50px;
     border-radius: 50%;
 }
+.search-company-logo-wrapper{
+    float: left;
+    border-right: solid 1px;
+    border-color: #c6c6c6;
+    height: 58px;
+}
+.search-company-logo{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 5px;
+}
+.search-company-name{
+    margin: 15px;
+    text-align: center;
+    font-weight: bold;
+}
 .full-handbook-foto{
     width: 200px;
     height: 200px;
@@ -456,9 +473,12 @@ input {
     margin: auto;
 }
 .modal-contact-company-search-result{
-
     border: solid 1px;
-    height: 30px;
+    height: 60px;
+    border-radius: 3px;
+    border-color: #c6c6c6;
+    margin-top: 5px;
+    cursor: pointer;
 }
 .modal-contact-company-search-result:hover{
     background-color: #dce1e5;

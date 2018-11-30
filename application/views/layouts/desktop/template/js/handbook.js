@@ -29,6 +29,7 @@ function saveContact() {
     var firstname = $("input[name='modal-contact-firstname']" ).val();
     var secondname = $("input[name='modal-contact-secondname']" ).val();
     var position = $("input[name='modal-contact-position']" ).val();
+    var company = $("input[name='modal-contact-company-id']" ).val();
     var phone_objects = [];
     var email_objects = [];
     $('input[name="modal-contact-phone"]').each(function() {
@@ -49,7 +50,7 @@ function saveContact() {
         type: "POST",
         url: "/handbook/contact/save/",
         data: {"surname": surname, "firstname": firstname, "secondname": secondname, "position": position,
-               "phone_objects": phone_objects, "email_objects": email_objects},
+                "company": company, "phone_objects": phone_objects, "email_objects": email_objects},
         cache: false,
         success:function (response) {
             var res = JSON.parse(response);
@@ -66,6 +67,8 @@ function saveContact() {
             $("input[name='modal-contact-firstname']" ).val('');
             $("input[name='modal-contact-secondname']" ).val('');
             $("input[name='modal-contact-position']" ).val('');
+            $("input[name='modal-contact-company-id']" ).val('');
+            $("input[name='modal-contact-company-name']" ).val('');
             //Очищаю телефоны
             $(".modal-contact-phone-input-wrapper").remove();
             //Очищаю email
@@ -171,7 +174,13 @@ modal_content.on('click' , '.btn-delete', function () {
  */
 modal_content.on('keyup', '#modal-contact-company-name', function () {
     var search = $('#modal-contact-company-name').val();
-    if (search.length > 3){
+    if(search.length < 5){
+        $('div.modal-contact-company-search-result').remove();
+        $('div.modal-contact-company-id').data('prop',''); //setter;
+        $("input[name='modal-contact-company-id']" ).val('');
+    }
+
+    if (search.length >= 5){
         var request = $.ajax({
             type: "POST",
             url: "/handbook/search/company",
@@ -179,12 +188,17 @@ modal_content.on('keyup', '#modal-contact-company-name', function () {
             cache: false
         });
         request.done(function(response){
-            var res = JSON.parse(response);
-            var string = '<div class="modal-contact-company-search-result">' +
-                '<i hidden>'+res.id+'</i>' +
-                '<i>'+res.name+'</i>' +
-                '</div></div>';
-            $("#modal-contact-company-search").append(string);
+            //Удаляю варианты поиска, перед выводом новых
+            $(".modal-contact-company-search-result").remove();
+            var data = JSON.parse(response);
+            $.each(data, function (key, value) {
+                var string = '<div class="modal-contact-company-search-result">' +
+                    '<div class="search-company-logo-wrapper"><img class="search-company-logo" src="/application/handbook/storage/logos/'+value.logo+'"></div>' +
+                    '<div id="company_id" data-prop="'+value.id+'" hidden></div>' +
+                    '<div class="search-company-name">'+value.short_name+'</div>' +
+                    '</div></div>';
+                $("#modal-contact-company-search").append(string);
+            });
         });
     }
 });
@@ -207,9 +221,10 @@ modal_content.on('click', '#modal-contact-company-name', function () {
 modal_content.on('click', '.modal-contact-company-search-result', function () {
     var company_id = $('#modal-contact-company-id');
     var company_name = $('#modal-contact-company-name');
-    global = true;
+    //global = true;
+    var id = $(this).children("#company_id").data('prop');
     var text = $(this).text();
-    company_id.val(1);
+    company_id.val(id);
     company_name.val(text);
     company_name.css({"border-color": "green"});
     $('div.modal-contact-company-search-result').remove();

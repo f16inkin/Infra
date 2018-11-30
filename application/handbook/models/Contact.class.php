@@ -167,7 +167,7 @@ class Contact extends Model
      * @param array | null $phones
      * @param array | null $emails
      */
-    public function insert(string $surname, string $firstname, string $secondname, string $position, int $company,
+    public function insert(string $surname, string $firstname, string $secondname, string $position, $company,
                            $phones, $emails){
         try{
             $messages = [];

@@ -52,7 +52,7 @@ class ControllerContact extends ControllerApplication
         $firstname = isset($_POST['firstname']) ? $_POST['firstname'] : null;
         $secondname = $_POST['secondname'];
         $position = $_POST['position'];
-        $company = 1;
+        $company = (empty($_POST['company'])) ? null : $_POST['company'];
         $phone_objects = isset($_POST['phone_objects']) ? $_POST['phone_objects'] : null;
         $email_objects = isset($_POST['email_objects']) ? $_POST['email_objects'] : null;
         $result = $this->_contact->insert($surname, $firstname, $secondname, $position, $company, $phone_objects, $email_objects);

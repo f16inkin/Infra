@@ -34,7 +34,6 @@ class Search extends Model
                 LEFT JOIN `companies` ON `contacts`.`company` = `companies`.`id`
                 WHERE `companies`.`short_name` LIKE '%$value%' OR CONCAT (`contacts`.`surname`,' ', `contacts`.`firstname`) LIKE '%$value%'
                 ORDER BY `contacts`.`id` ASC
-                
                 ");
                 $result = $this->_db->prepare($query);
                 $result->execute();
@@ -64,11 +63,28 @@ class Search extends Model
         }
     }
 
-    public function getCompany(string $value){
+    public function getCompany($value){
         try{
             if (strlen($value) >= 3){
-
+                $query = ("SELECT `companies`.`id`, `companies`.`short_name`, `companies`.`logo` 
+                           FROM `companies`
+                           WHERE `companies`.`short_name` LIKE '%$value%'
+                           ");
+                $result = $this->_db->prepare($query);
+                $result->execute();
+                if ($result->rowCount() > 0){
+                    $i = 0;
+                    while ($row = $result->fetch()){
+                        $companies[$i]['id'] = $row['id'];
+                        $companies[$i]['short_name'] = $row['short_name'];
+                        $companies[$i]['logo'] = $row['logo'];
+                        $i++;
+                    }
+                    return $companies;
+                }
+                return null;
             }
+            return null;
         }
         catch (DatabaseException $e){
             echo 'Database error';
