@@ -26,10 +26,10 @@ class ControllerHandbook extends ControllerApplication
 
     public function actionIndex(){
         $this->_view->setTitle('Контакты и Компании');
-        $this->_view->render($this->_device.'/handbook/start.page');
+        $this->_view->render($this->_device.'/handbook/handbook.page');
     }
 
-    public function actionContacts(){
+    /*public function actionContacts(){
         $content = $this->_contacts->getContacts();
         $this->_view->setTitle('Контакты');
         $this->_view->render($this->_device.'/handbook/contacts.page', $content);
@@ -39,6 +39,6 @@ class ControllerHandbook extends ControllerApplication
         $content = $this->_companies->getCompanies();
         $this->_view->setTitle('Компании');
         $this->_view->render($this->_device.'/handbook/companies.page', $content);
-    }
+    }*/
 
 }

@@ -55,8 +55,18 @@ class ControllerContact extends ControllerApplication
         $company = (empty($_POST['company'])) ? null : $_POST['company'];
         $phone_objects = isset($_POST['phone_objects']) ? $_POST['phone_objects'] : null;
         $email_objects = isset($_POST['email_objects']) ? $_POST['email_objects'] : null;
+        /**
+         * Получаю ответ от модели, о результате выполнения запроса:
+         * added - данные успшно добавлены. Создан новый контакт.
+         * notAdded - даннные пок акой либо причине не добавлены. Конатакт не создан.
+         * noDataGiven - сообщенре о том, что гнеобхожимые данные не были передаын (Имя и Фамилия на стеущий момент).
+         * dbError - ошибка при работе с базой данных. Данные не были вставлены в БД. Контакт не создан
+         */
         $result = $this->_contact->insert($surname, $firstname, $secondname, $position, $company, $phone_objects, $email_objects);
-        //Отправляю сообщение полученное в результате выполнения в response
+        /**
+         * Так как нет необходимости в дополнительных сообщения[. Отправляю результат во View,
+         * для обработки ответов в JS.
+         */
         echo json_encode($result);
     }
 }

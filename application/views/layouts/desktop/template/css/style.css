@@ -362,12 +362,12 @@ input {
     border-color: #dce1e5;
     padding: 5px;
 }
-.cards-nav-bar{
+/*.cards-nav-bar{
     width: 100%;
     height: 38px;
     border-bottom: solid 2px;
     border-color: #dce1e5;
-}
+}*/
 .cards-search-bar{
     width: inherit;
     height: 35px;
@@ -387,6 +387,42 @@ input {
 /*----------------------------------------------------------------------*/
                         /*РАЗДЕЛ СПРАВОЧНИК*/
 /*----------------------------------------------------------------------*/
+.module-wrapper{
+    background: #eeeeee;
+    border: solid 1px;
+    padding-top: 15px;
+    border-color: #c1c1c1;
+    border-radius: 10px;
+}
+
+#handbook-menu{
+    width: 100%;
+    min-height: 40px;
+    background-color: white;
+    border: solid 2px;
+    padding: 5px;
+    border-radius: 5px;
+    border-color: #dce1e5;
+}
+#handbook-content{
+    width: 100%;
+    min-height: 300px;
+    border: solid 2px;
+    padding: 5px;
+    margin-top: 10px;
+    background-color: white;
+    border-radius: 5px;
+    border-color: #dce1e5;
+    margin-bottom: 10px;
+}
+
+.handbook-nav-bar{
+    width: 100%;
+    height: 38px;
+    border-bottom: solid 2px;
+    border-color: #dce1e5;
+}
+
 .preview-handbook-foto{
     width: 50px;
     height: 50px;

@@ -170,12 +170,11 @@ class Contact extends Model
     public function insert(string $surname, string $firstname, string $secondname, string $position, $company,
                            $phones, $emails){
         try{
-            $messages = [];
             //Мало ли JS не отвалидировал входящее значение. Если поля имя и фамилия пустые, то будет оповещение об
             //этом со сторны сервера.
             if(empty($surname) OR empty($firstname)){
                 $messages['status'] = 'failed';
-                $messages['message'] = 'Фамилия или имя не заполнены. Контакт не может быть создан.';
+                $messages['message'] = 'noDataGiven';
                 return $messages;
             }
             //Если минимальные условаия выполнены, то формирую запрос на вставку контакта
@@ -198,16 +197,18 @@ class Contact extends Model
                 if (isset($emails)){
                     $this->insertEmails($user_id, $emails);
                 }
-                $messages['status'] = 'successed';
-                $messages['message'] = 'Контакт успешно добавлен';
+                $outcome['status'] = 'successed';
+                $outcome['message'] = 'added';
             }else{
-                $messages['status'] = 'failed';
-                $messages['message'] = 'Ошибка при добавлении контакта';
+                $outcome['status'] = 'failed';
+                $outcome['message'] = 'notAdded';
             }
-            return $messages;
+            return $outcome;
 
-        }catch (DatabaseException $e){
-
+        }catch (\Exception $e){
+            $outcome['status'] = 'failed';
+            $outcome['message'] = 'dbError';
+            return $outcome;
         }
     }
 

@@ -37,7 +37,11 @@
             <td><?=$contact['position'] ;?></td>
             <td><?=$contact['phone'] ;?></td>
             <td><?=$contact['email'] ;?></td>
+            <?if(isset($contact['company_id'])) :?>
             <td><a href="" onclick="showCompany(<?=$contact['company_id'] ;?>); return false;" class="btn btn-dark btn-sm"><?=$contact['company'] ;?></a></td>
+            <?else:?>
+                <td>-</td>
+            <?endif; ?>
             <td><a href="" onclick="showContact(<?=$contact['id'] ;?>); return false;" class="btn btn-primary btn-sm">Посмотреть</a></td>
         </tr>
     <?php endforeach; ?>
