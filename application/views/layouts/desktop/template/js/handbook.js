@@ -44,7 +44,7 @@ $("#handbook-button").on('click', function () {
  *
  */
 $("#management-button").on('click', function () {
-    $("#title").text("Управление");
+    //$("#title").text("Управление");
     loadManagementPage();
     return false;
 });
@@ -291,19 +291,17 @@ function showCompany(id){
 }
 
 function loadContacts() {
-    $.ajax({
+    var request = $.ajax({
         type: "POST",
         url: "/handbook/get/contacts/",
         cache: false,
         beforeSend: function () {
-            $(".cards-content").html('Loading');
-        },
-        success:function (response) {
-            //var redirect = '/handbook/contacts/';
-            //history.pushState('', '', redirect);
-            $("#title").text("Контакты");
-            $("#changeable-data").html(response);
+            $("#changeable-data").html('Loading');
         }
+    });
+    request.done(function (response) {
+        $("#title").text("Контакты");
+        $("#changeable-data").html(response);
     });
     return false;
 }
@@ -344,16 +342,56 @@ function loadManagementPage() {
     $("div#handbook-content").empty();
     //Установка состояния
     localStorage.setItem("handbookState", "management");
-    //Загрузка структуры для текущей вкладки
-    var string = '<div class="cards-nav-bar">' +
-        '<div class="handbook-nav-bar">' +
-        '<a href="" onclick="addContact(); return false;" class="btn btn-success btn-sm"  data-toggle="modal" data-target="#addModalCenter">' +
-        '<i class="fa fa-plus-circle" aria-hidden="true"></i> Добавить контакт</a> ' +
-        '<a href="" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addCompanyModalCenter">' +
-        '<i class="fa fa-plus-circle" aria-hidden="true"></i> Добавить компанию</a> ' +
-        '</div></div>' +
-        '<div id="changeable-data"></div>';
-    $("#handbook-content").prepend(string);
+    var request = $.ajax({
+        type: "POST",
+        url: "/handbook/management/",
+        cache: false
+    });
+    request.done(function (response) {
+        /*res = JSON.parse(response);
+        //Если доступ закрыт для текущего пользователя
+        if (res.access == 'denied') {
+            //Установка заголовка
+            $("#title").text("Доступ закрыт");
+            //Формирую HTML
+            var string =
+            '<h5  style="text-align: center;">Доступ для <span id="user-denied">11111</span> закрыт!</h5>' +
+            '<p style="text-align: center;">Если у вас был доступ к этому разделу. То обратитесь к админисратору.</p>' +
+            '<div style="margin-left: calc(50% - 100px);">' +
+                '<img style="width: 200px; height: 200px;" src="/application/handbook/storage/system/access_denied.png">' +
+            '</div>';
+            //Загрузка на страницу
+            $("#handbook-content").prepend(string);
+            $("#user-denied").text(res.user);
+        }else {
+            //Установка заголовка
+            $("#title").text("Управление");
+            //Формирую HTML
+            var string =
+                '<div class="cards-nav-bar">' +
+                    '<div class="handbook-nav-bar">' +
+                        '<a href="" onclick="addContact(); return false;" class="btn btn-success btn-sm"  data-toggle="modal" data-target="#addModalCenter">' +
+                        '<i class="fa fa-plus-circle" aria-hidden="true"></i> Добавить контакт</a> ' +
+                        '<a href="" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addCompanyModalCenter">' +
+                        '<i class="fa fa-plus-circle" aria-hidden="true"></i> Добавить компанию</a> ' +
+                    '</div>' +
+                '</div>' +
+                '<div id="changeable-data"></div>';
+            //Загрузка на страницу
+            $("#handbook-content").prepend(string);
+            $.each(res.data, function (key, value) {
+                console.log(value);
+                var string2 = '<p>id'+value.id+'</p>' +
+                              '<p>Принято'+value.received+'</p>' +
+                              '<p>Продано'+value.sold+'</p>';
+                $("#handbook-content").append(string2);
+            });
+        }*/
+        $("#handbook-content").html(response);
+        var title = $("div#for-title").text();
+        $("#title").text(title);
+    });
+    return false;
 }
 
 

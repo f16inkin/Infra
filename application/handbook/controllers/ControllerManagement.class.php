@@ -20,21 +20,31 @@ class ControllerManagement extends ControllerApplication
         $this->_hasAccessPermission = $this->_user->hasPermission('handbook_management');
     }
 
-    private function accessDenied(){
-        $content['short_name'] = $this->_user->getShortname();
-        $this->_view->setTitle('Закрыт доступ');
-        $this->_view->render($this->_device.'/handbook/access-denied.page', $content);
+    private function loadPage(string $page, array $content){
+        include $this->_view->returnPagePath('application', $this->_device.$page);
     }
 
     public function actionIndex()
     {
+        /*if ($this->_hasAccessPermission){
+            $data[0] = ['id' => 1, 'received' => 100, 'sold' => 1000];
+            $data[1] = ['id' => 2, 'received' => 200, 'sold' => 2000];
+            $message = ['access' => 'allowed', 'data' => $data];
+        }
+        else{
+            $message = ['access' => 'denied', 'user' => $this->_user->getShortname()];
+        }
+        echo json_encode($message);*/
+
+
         if ($this->_hasAccessPermission){
-            $this->_view->setTitle('Справочник. Управление');
-            $this->_view->render($this->_device.'/handbook/management.page');
+            $content['title'] = 'Управление';
+            $this->loadPage('/handbook/ajax/successed/management.page', $content);
         }else{
-            $this->accessDenied();
+            $content['short_name'] = $this->_user->getShortname();
+            $content['title'] = 'Доступ закрыт';
+            $this->loadPage('/handbook/ajax/successed/access-denied.page', $content);
         }
     }
-
 
 }

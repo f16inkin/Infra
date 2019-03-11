@@ -167,7 +167,7 @@ class Contact extends Model
      * @param array | null $phones
      * @param array | null $emails
      */
-    public function insert(string $surname, string $firstname, string $secondname, string $position, $company,
+    public function insert(string $surname, string $firstname, string $secondname, $position, $company,
                            $phones, $emails){
         try{
             //Мало ли JS не отвалидировал входящее значение. Если поля имя и фамилия пустые, то будет оповещение об

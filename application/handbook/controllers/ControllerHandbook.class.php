@@ -29,16 +29,4 @@ class ControllerHandbook extends ControllerApplication
         $this->_view->render($this->_device.'/handbook/handbook.page');
     }
 
-    /*public function actionContacts(){
-        $content = $this->_contacts->getContacts();
-        $this->_view->setTitle('Контакты');
-        $this->_view->render($this->_device.'/handbook/contacts.page', $content);
-    }
-
-    public function actionCompanies(){
-        $content = $this->_companies->getCompanies();
-        $this->_view->setTitle('Компании');
-        $this->_view->render($this->_device.'/handbook/companies.page', $content);
-    }*/
-
 }
